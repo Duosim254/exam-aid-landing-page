@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,6 +7,11 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calendar, Mail, Phone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from 'emailjs-com';
+
+const SERVICE_ID = 'your_service_id';
+const TEMPLATE_ID = 'your_template_id'; 
+const USER_ID = 'your_user_id';
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -21,6 +25,7 @@ const ContactForm = () => {
     plagReport: false,
     details: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -38,23 +43,50 @@ const ContactForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
     
-    toast({
-      title: "Request Received!",
-      description: "We'll get back to you as soon as possible.",
-    });
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone,
+      assignment_type: formData.assignmentType,
+      education_level: formData.educationLevel,
+      deadline: formData.deadline,
+      plag_report: formData.plagReport ? 'Yes' : 'No',
+      message: formData.details,
+      to_email: 'duoabdul@gmail.com'
+    };
     
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      assignmentType: '',
-      educationLevel: '',
-      deadline: '',
-      plagReport: false,
-      details: ''
-    });
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        toast({
+          title: "Request Received!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          assignmentType: '',
+          educationLevel: '',
+          deadline: '',
+          plagReport: false,
+          details: ''
+        });
+      })
+      .catch((error) => {
+        console.error('FAILED...', error);
+        toast({
+          title: "Error",
+          description: "There was a problem sending your request. Please try again or contact us directly.",
+          variant: "destructive"
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -195,8 +227,12 @@ const ContactForm = () => {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full bg-brand-blue hover:bg-brand-blue-light">
-                    Submit Request
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-brand-blue hover:bg-brand-blue-light"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Request'}
                   </Button>
                 </form>
               </CardContent>
