@@ -57,6 +57,14 @@ const ContactFormSection = () => {
       to_email: 'duoabdul@gmail.com'
     };
     
+    console.log('Sending email with parameters:', templateParams);
+    
+    // Ensure EmailJS is initialized before sending
+    if (!window.emailjs) {
+      console.error('EmailJS not initialized');
+      emailjs.init(USER_ID);
+    }
+    
     emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
@@ -80,7 +88,7 @@ const ContactFormSection = () => {
         console.error('FAILED...', error);
         toast({
           title: "Error",
-          description: "There was a problem sending your request. Please try again or contact us directly.",
+          description: "There was a problem sending your request. Please try again or contact us directly via WhatsApp.",
           variant: "destructive"
         });
       })
