@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -59,42 +58,49 @@ const ContactFormSection = () => {
     
     console.log('Sending email with parameters:', templateParams);
     
-    // Ensure EmailJS is initialized before sending
-    if (!window.emailjs) {
-      console.error('EmailJS not initialized');
-      emailjs.init(USER_ID);
+    // Check if window.emailjs exists, if not use the imported emailjs
+    if (typeof window !== 'undefined' && window.emailjs) {
+      console.log('Using window.emailjs');
+      window.emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
+        .then(handleEmailSuccess)
+        .catch(handleEmailError)
+        .finally(() => setIsSubmitting(false));
+    } else {
+      console.log('Using imported emailjs');
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
+        .then(handleEmailSuccess)
+        .catch(handleEmailError)
+        .finally(() => setIsSubmitting(false));
     }
+  };
+
+  // Extract success and error handlers to clean up the code
+  const handleEmailSuccess = (response: { status: number; text: string }) => {
+    console.log('SUCCESS!', response.status, response.text);
+    toast({
+      title: "Request Received!",
+      description: "We'll get back to you as soon as possible.",
+    });
     
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
-      .then((response) => {
-        console.log('SUCCESS!', response.status, response.text);
-        toast({
-          title: "Request Received!",
-          description: "We'll get back to you as soon as possible.",
-        });
-        
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          assignmentType: '',
-          educationLevel: '',
-          deadline: '',
-          plagReport: false,
-          details: ''
-        });
-      })
-      .catch((error) => {
-        console.error('FAILED...', error);
-        toast({
-          title: "Error",
-          description: "There was a problem sending your request. Please try again or contact us directly via WhatsApp.",
-          variant: "destructive"
-        });
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      assignmentType: '',
+      educationLevel: '',
+      deadline: '',
+      plagReport: false,
+      details: ''
+    });
+  };
+
+  const handleEmailError = (error: any) => {
+    console.error('FAILED...', error);
+    toast({
+      title: "Error",
+      description: "There was a problem sending your request. Please try again or contact us directly via WhatsApp.",
+      variant: "destructive"
+    });
   };
 
   return (
