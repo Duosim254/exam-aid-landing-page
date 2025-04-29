@@ -7,7 +7,7 @@ const Pricing = () => {
   const pricingPlans = [
     {
       title: "Standard Assignments",
-      price: "From $50",
+      price: "From $10 per page",
       features: [
         "Essays & Reports",
         "Basic Research Papers",
@@ -20,8 +20,8 @@ const Pricing = () => {
       highlighted: false
     },
     {
-      title: "Online Exams",
-      price: "$150",
+      title: "Non-Proctored Exams",
+      price: "From $100",
       features: [
         "D2L & Blackboard Exams",
         "Canvas & Moodle Tests",
@@ -34,8 +34,8 @@ const Pricing = () => {
       highlighted: true
     },
     {
-      title: "Advanced Services",
-      price: "From $300",
+      title: "Proctored Exams",
+      price: "From $150",
       features: [
         "Proctored Exams",
         "TEAS & NCLEX Assistance",
