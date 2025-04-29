@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -63,13 +64,13 @@ const ContactFormSection = () => {
       console.log('Using window.emailjs');
       window.emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
         .then(handleEmailSuccess)
-        .catch(handleEmailError)
+        .catch(error => handleEmailError(error, 'window.emailjs'))
         .finally(() => setIsSubmitting(false));
     } else {
       console.log('Using imported emailjs');
       emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
         .then(handleEmailSuccess)
-        .catch(handleEmailError)
+        .catch(error => handleEmailError(error, 'imported emailjs'))
         .finally(() => setIsSubmitting(false));
     }
   };
@@ -94,11 +95,20 @@ const ContactFormSection = () => {
     });
   };
 
-  const handleEmailError = (error: any) => {
-    console.error('FAILED...', error);
+  const handleEmailError = (error: any, source: string) => {
+    console.error(`FAILED with ${source}...`, error);
+    
+    // Check for the domain restriction error
+    let errorMessage = "There was a problem sending your request. Please try again or contact us directly via WhatsApp.";
+    
+    if (error && error.text && error.text.includes("restricted to the domains")) {
+      errorMessage = "Domain not authorized in EmailJS settings. If you're testing locally, please add your domain to the allowed list in EmailJS dashboard.";
+      console.warn("EmailJS domain restriction error. Add your testing domain to the allowed list in EmailJS dashboard.");
+    }
+    
     toast({
       title: "Error",
-      description: "There was a problem sending your request. Please try again or contact us directly via WhatsApp.",
+      description: errorMessage,
       variant: "destructive"
     });
   };
