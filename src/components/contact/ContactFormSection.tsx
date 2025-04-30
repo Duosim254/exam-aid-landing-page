@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,8 +9,8 @@ import { useToast } from '@/hooks/use-toast';
 import emailjs from 'emailjs-com';
 
 const SERVICE_ID = 'service_4o5ytwc';
-const TEMPLATE_ID = 'template_kvbyxx6'; 
-const USER_ID = '4e7N1qnbo-tO6xXqk';
+const TEMPLATE_ID = 'template_xz1p7jj'; 
+const USER_ID = 'XCPNkg8H9OZ2nWGKB';
 
 const ContactFormSection = () => {
   const { toast } = useToast();
