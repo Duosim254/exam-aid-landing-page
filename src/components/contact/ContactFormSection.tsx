@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -58,18 +59,21 @@ const ContactFormSection = () => {
     
     console.log('Sending email with parameters:', templateParams);
     
-    // Check if window.emailjs exists, if not use the imported emailjs
+    // Get the current domain for user guidance
+    const currentDomain = window.location.origin;
+    
+    // Try to send email with proper error handling
     if (typeof window !== 'undefined' && window.emailjs) {
       console.log('Using window.emailjs');
       window.emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
         .then(handleEmailSuccess)
-        .catch(error => handleEmailError(error, 'window.emailjs'))
+        .catch(error => handleEmailError(error, 'window.emailjs', currentDomain))
         .finally(() => setIsSubmitting(false));
     } else {
       console.log('Using imported emailjs');
       emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
         .then(handleEmailSuccess)
-        .catch(error => handleEmailError(error, 'imported emailjs'))
+        .catch(error => handleEmailError(error, 'imported emailjs', currentDomain))
         .finally(() => setIsSubmitting(false));
     }
   };
@@ -94,20 +98,34 @@ const ContactFormSection = () => {
     });
   };
 
-  const handleEmailError = (error: any, source: string) => {
+  const handleEmailError = (error: any, source: string, currentDomain: string) => {
     console.error(`FAILED with ${source}...`, error);
     
-    // Check for the domain restriction error
-    let errorMessage = "There was a problem sending your request. Please try again or contact us directly via WhatsApp.";
+    // Detailed error logging to help diagnose issues
+    if (error && error.text) {
+      console.error("Error text:", error.text);
+    }
     
-    if (error && error.text && error.text.includes("restricted to the domains")) {
-      errorMessage = "Domain not authorized in EmailJS settings. If you're testing locally, please add your domain to the allowed list in EmailJS dashboard.";
-      console.warn("EmailJS domain restriction error. Add your testing domain to the allowed list in EmailJS dashboard.");
+    let errorMessage = "There was a problem sending your request. Please try again or contact us directly via WhatsApp.";
+    let errorDescription = "";
+    
+    // Check for domain restriction error specifically
+    if (error && error.text && (
+      error.text.includes("restricted to the domains") || 
+      error.text.includes("not listed in authorized domains")
+    )) {
+      errorMessage = "Domain Not Authorized";
+      errorDescription = `Your current domain (${currentDomain}) is not authorized in EmailJS settings. To fix this:
+        1. Go to EmailJS dashboard
+        2. Navigate to "Settings" > "Security" 
+        3. Add "${currentDomain}" to allowed domains`;
+      
+      console.warn(`EmailJS domain restriction error. Please add ${currentDomain} to the allowed domains list in EmailJS dashboard.`);
     }
     
     toast({
-      title: "Error",
-      description: errorMessage,
+      title: errorMessage,
+      description: errorDescription || errorMessage,
       variant: "destructive"
     });
   };
@@ -246,6 +264,12 @@ const ContactFormSection = () => {
           >
             {isSubmitting ? 'Submitting...' : 'Submit Request'}
           </Button>
+          
+          {/* Add a message explaining domain restrictions */}
+          <p className="text-sm text-gray-500 mt-4">
+            Note: If you're testing this form locally or on a development server, 
+            you may need to authorize your domain in EmailJS settings.
+          </p>
         </form>
       </CardContent>
     </Card>
