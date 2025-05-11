@@ -4,11 +4,6 @@ import { Card, CardContent } from '@/components/ui/card';
 const Testimonials = () => {
   const testimonials = [
     {
-      content: "The service helped me pass my nursing exam when I was struggling with balancing work and studies. Highly professional and reliable!",
-      author: "Sarah K.",
-      title: "Nursing Student"
-    },
-    {
       content: "I've used Research Wolves for several challenging assignments. Their attention to detail and quality of work is exceptional. Truly worth every penny.",
       author: "Michael T.",
       title: "MBA Student"
@@ -35,7 +30,7 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="flex flex-col space-y-6 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow">
               <CardContent className="pt-6">
