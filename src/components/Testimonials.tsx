@@ -9,7 +9,7 @@ const Testimonials = () => {
       title: "Nursing Student"
     },
     {
-      content: "I've used ExamAid for several challenging assignments. Their attention to detail and quality of work is exceptional. Truly worth every penny.",
+      content: "I've used Research Wolves for several challenging assignments. Their attention to detail and quality of work is exceptional. Truly worth every penny.",
       author: "Michael T.",
       title: "MBA Student"
     },
