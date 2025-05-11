@@ -17,6 +17,11 @@ const Testimonials = () => {
       content: "The team helped me with my dissertation when I was running out of time. They delivered outstanding work that exceeded my expectations.",
       author: "Jennifer L.",
       title: "PhD Candidate"
+    },
+    {
+      content: "Research Wolves assisted me with my proctored exams when I was really stressed. Their expert helped me through the entire process, and I passed with flying colors!",
+      author: "David R.",
+      title: "Computer Science Major"
     }
   ];
 
@@ -30,7 +35,7 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow">
               <CardContent className="pt-6">
