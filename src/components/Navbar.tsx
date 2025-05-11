@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white py-4 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-brand-blue">ExamAid</a>
+        <a href="#" className="text-2xl font-bold text-brand-blue">Research Wolves</a>
         
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
