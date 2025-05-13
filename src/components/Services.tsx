@@ -32,8 +32,16 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-16 md:py-24 bg-gray-50">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="services" className="py-16 md:py-24 bg-gray-50 relative">
+      {/* Background image with overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-5"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1497604401993-f2e922e5cb0a?auto=format&fit=crop&q=80')",
+        }}
+      />
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4">Our Services</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -43,7 +51,7 @@ const Services = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {services.map((service, index) => (
-            <Card key={index} className="border border-gray-200 hover:shadow-lg transition-shadow">
+            <Card key={index} className="border border-gray-200 hover:shadow-lg transition-shadow backdrop-blur-sm bg-white/90">
               <CardHeader className="pb-4">
                 <div className="mb-4">{service.icon}</div>
                 <CardTitle className="text-xl text-brand-blue">{service.title}</CardTitle>

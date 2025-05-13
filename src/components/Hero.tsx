@@ -3,8 +3,17 @@ import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-r from-brand-blue to-brand-blue-light text-white">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="py-16 md:py-24 bg-gradient-to-r from-brand-blue to-brand-blue-light text-white relative overflow-hidden">
+      {/* Background overlay */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center opacity-20" 
+        style={{ 
+          backgroundImage: "url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80')",
+          backgroundBlendMode: "overlay"
+        }}
+      />
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Academic Excellence Without The Stress

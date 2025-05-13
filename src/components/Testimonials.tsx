@@ -21,8 +21,16 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-gray-50">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="testimonials" className="py-16 md:py-24 bg-gray-50 relative">
+      {/* Background image with overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-5"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&q=80')",
+        }}
+      />
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4">What Our Clients Say</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -32,7 +40,7 @@ const Testimonials = () => {
 
         <div className="flex flex-col space-y-6 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow">
+            <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow backdrop-blur-sm bg-white/90">
               <CardContent className="pt-6">
                 <div className="mb-4">
                   <svg className="h-6 w-6 text-brand-orange fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
