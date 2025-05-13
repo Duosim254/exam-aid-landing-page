@@ -46,6 +46,20 @@ const Pricing = () => {
       description: "Comprehensive support for advanced academic challenges",
       buttonText: "Contact Us",
       highlighted: false
+    },
+    {
+      title: "Online Tutoring",
+      price: "From $30 per hour",
+      features: [
+        "One-on-One Sessions",
+        "Subject Matter Experts",
+        "Flexible Scheduling",
+        "Personalized Learning",
+        "All Academic Levels"
+      ],
+      description: "Expert tutoring to master difficult concepts and improve grades",
+      buttonText: "Book a Tutor",
+      highlighted: false
     }
   ];
 
@@ -59,7 +73,7 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {pricingPlans.map((plan, index) => (
             <Card 
               key={index} 
