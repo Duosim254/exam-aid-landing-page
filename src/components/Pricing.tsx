@@ -49,13 +49,13 @@ const Pricing = () => {
     },
     {
       title: "Online Tutoring",
-      price: "From $30 per hour",
+      price: "From $50 per hour",
       features: [
-        "One-on-One Sessions",
-        "Subject Matter Experts",
-        "Flexible Scheduling",
-        "Personalized Learning",
-        "All Academic Levels"
+        "Mathematics & Statistics",
+        "English & Literature",
+        "Chemistry & Physics",
+        "Computer Science",
+        "Biology & Health Sciences"
       ],
       description: "Expert tutoring to master difficult concepts and improve grades",
       buttonText: "Book a Tutor",
