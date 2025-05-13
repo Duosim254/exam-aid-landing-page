@@ -14,6 +14,7 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
           <div className="space-x-6">
+            <a href="#about" className="text-gray-700 hover:text-brand-orange font-medium transition-colors">About</a>
             <a href="#services" className="text-gray-700 hover:text-brand-orange font-medium transition-colors">Services</a>
             <a href="#pricing" className="text-gray-700 hover:text-brand-orange font-medium transition-colors">Pricing</a>
             <a href="#testimonials" className="text-gray-700 hover:text-brand-orange font-medium transition-colors">Testimonials</a>
@@ -37,6 +38,13 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white py-4 px-4 absolute w-full shadow-lg">
           <div className="flex flex-col space-y-4">
+            <a 
+              href="#about" 
+              className="text-gray-700 hover:text-brand-orange font-medium transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </a>
             <a 
               href="#services" 
               className="text-gray-700 hover:text-brand-orange font-medium transition-colors py-2"
