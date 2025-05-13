@@ -1,5 +1,5 @@
 
-import { Book, Clock, FileText, Users } from 'lucide-react';
+import { Book, Clock, FileText, Users, GraduationCap } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Services = () => {
@@ -23,6 +23,11 @@ const Services = () => {
       icon: <Users size={36} className="text-brand-orange" />,
       title: "Group Projects",
       description: "Collaborative assistance for group assignments, ensuring consistent quality across all components of your project."
+    },
+    {
+      icon: <GraduationCap size={36} className="text-brand-orange" />,
+      title: "Online Tutoring",
+      description: "Personalized one-on-one tutoring sessions with subject matter experts to help you master difficult concepts and improve your grades."
     }
   ];
 
@@ -36,7 +41,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {services.map((service, index) => (
             <Card key={index} className="border border-gray-200 hover:shadow-lg transition-shadow">
               <CardHeader className="pb-4">
